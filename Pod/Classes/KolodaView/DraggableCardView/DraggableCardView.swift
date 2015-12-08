@@ -214,7 +214,9 @@ public class DraggableCardView: UIView {
             transform = CATransform3DTranslate(transform, dragDistance.x, dragDistance.y, 0)
             layer.transform = transform
             
-            updateOverlayWithFinishPercent(dragDistance.x / CGRectGetWidth(frame))
+            //updateOverlayWithFinishPercent(dragDistance.x / CGRectGetWidth(frame))
+            updateOverlayWithDrag()
+            
             //100% - for proportion
             delegate?.card(self, wasDraggedWithFinishPercent: min(fabs(dragDistance.x * 100 / CGRectGetWidth(frame)), 100), inDirection: dragDirection)
             
@@ -235,6 +237,27 @@ public class DraggableCardView: UIView {
     //MARK: Private
     private var dragDirection: SwipeResultDirection {
         return dragDistance.x > 0 ? .Right : .Left
+    }
+    
+    //PowHu add
+    private func updateOverlayWithDrag() {
+        guard let overlayView = self.overlayView else { return }
+        
+        let percent : CGFloat
+        
+        if fabs(dragDistance.x) > fabs(dragDistance.y) {
+            overlayView.overlayState = dragDistance.x > 0.0 ? .Right : .Left
+            percent = dragDistance.x / CGRectGetWidth(frame)
+        } else {
+            overlayView.overlayState = dragDistance.y > 0.0 ? .Down : .Up
+            percent = dragDistance.y / CGRectGetHeight(frame)
+        }
+        
+        let overlayStrength = min(fabs(2 * percent), 1.0)
+        print(overlayStrength)
+        overlayView.alpha = overlayStrength
+
+        
     }
     
     private func updateOverlayWithFinishPercent(percent: CGFloat) {

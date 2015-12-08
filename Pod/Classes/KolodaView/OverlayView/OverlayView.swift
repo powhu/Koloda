@@ -12,6 +12,8 @@ public enum OverlayMode{
     case None
     case Left
     case Right
+    case Up
+    case Down
 }
 
 

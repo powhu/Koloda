@@ -28,10 +28,10 @@ class CustomOverlayView: OverlayView {
             switch overlayState {
             case .Left :
                 overlayImageView.image = UIImage(named: overlayLeftImageName)
-            case .Right :
+            case .Right , .Down , .Up:
                 overlayImageView.image = UIImage(named: overlayRightImageName)
             default:
-                overlayImageView.image = nil
+                overlayImageView.image = UIImage(named: overlayRightImageName)
             }
             
         }
