@@ -240,7 +240,7 @@ public class DraggableCardView: UIView {
     }
     
     //PowHu add
-    private func updateOverlayWithDrag() {
+    public func updateOverlayWithDrag() {
         guard let overlayView = self.overlayView else { return }
         
         let percent : CGFloat
